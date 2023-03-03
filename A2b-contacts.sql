@@ -22,7 +22,7 @@ SELECT
   IF(country.code IN ("FR","BE"),"fr_FR","en_US") AS "lang",
   IFNULL(societe.url,"") AS "Website Link",
   IFNULL(societe.email,"") AS "Email",
-  societe.client AS "Customer Rank", -- THERE ARE NO 1/0 FOR THIS - DO SOMETHING BETTER - COUNT N° ORDERS
+  societe.client AS "Customer Rank", -- NO bool FOR THIS - DO SOMETHING BETTER - COUNT N° ORDERS
   societe.fournisseur AS "Supplier Rank", -- EXISTS ALSO IN DOLIBARR, BUT "NULL", ASK PAUL IF INTERESTED
   "" AS "Title",
   "" AS "Job Position",
