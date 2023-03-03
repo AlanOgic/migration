@@ -38,7 +38,7 @@ SELECT
     WHEN st.id = 3 THEN "Done"
   END AS "state",
   c.total_ht AS "total_HT",
-
+  c.note_public AS "public note", 
   c.note_private AS "private note", 
 DATE_FORMAT(date(c.date_livraison),'%Y-%m-%d') AS "commitment_date"
   /* order lines with a second order import
@@ -54,19 +54,5 @@ FROM
   -- LEFT JOIN llx_commandedet AS cd ON cd.fk_commande = c.rowid
   -- LEFT JOIN llx_product     AS p ON p.rowid = cd.fk_product
   -- LEFT JOIN llx_societe     AS s ON s.rowid = c.fk_soc
-WHERE 1=1;
-UNION
-SELECT
-  CONCAT("propal",LPAD(pr.rowid,4,0)) AS "External ID",
-  st.id AS "statut_external_id",
-CASE
-   WHEN st.id = 0 THEN "Draft"
-   WHEN st.id = 1 THEN "Sent"
-   WHEN st.id = 2 THEN "Sale"
-   WHEN st.id = 3 THEN "Done"
-   WHEN st.id = 4 THEN "Cancel"
-  END AS "state"
-FROM llx_propal AS pr
-LEFT JOIN status AS st ON pr.fk_statut = st.id
 WHERE 1=1;
 SELECT * FROM c1a_sorder;
