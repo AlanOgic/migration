@@ -2,7 +2,7 @@
 CREATE OR REPLACE VIEW e1a_detailcom AS
 SELECT 
   CONCAT("orline",LPAD(cd.rowid,4,0)) as "External ID",
-  c.ref AS "ordername",
+  -- c.ref AS "ordername",
  -- Order Lines
   CONCAT("[",p.label,"] ",p.ref) AS "order_line/product",
   cd.remise_percent AS "order_line/discount",
