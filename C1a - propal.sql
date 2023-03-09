@@ -33,15 +33,16 @@ SELECT
     ELSE NULL
   END AS "pricelist_id",
    CASE 
-    WHEN country.code = "BE" THEN  "Régime National"
+    WHEN country.code = "BE" THEN "Régime National"
     WHEN country.code IN ("AT","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","EU") THEN "Régime Intra-Communautaire" 
     ELSE IF(ISNULL(country.code),NULL,"Régime Extra-Communautaire") 
   END AS "fiscal_position_id",
+  "0" AS "show_update_fpos",
   CASE 
     WHEN s.cond_reglement = 19 THEN "45 Days"
     WHEN s.cond_reglement = 13 THEN "Immediate Payment"
     WHEN s.cond_reglement = 2  THEN "30 Days"
-    ELSE IF(ISNULL(s.cond_reglement),NULL,"30 Days")
+    ELSE IF(ISNULL(s.cond_reglement),"30 Days",NULL)
   END AS "payment_term_id", 
   -- Order Lines
   CONCAT("[",p.label,"] ",p.ref) AS "order_line/product",
@@ -50,6 +51,10 @@ SELECT
   cd.remise_percent AS "order_line/discount",
   cd.qty AS "order_line/product_uom_qty",
   cd.multicurrency_subprice AS "order_line/price_unit",
+  s.nom AS "shipping_address",
+  s.nom AS "invoicing_address",
+  "0" AS "auto_generated",
+  "0" AS "show_update_pricelist",
   IF(ISNULL(cd.fk_product),"TRUE","FALSE") AS "order_line/is_expense"
 FROM 
   -- Build an intermediate "first_line" table with the order id and the id of the first line of the order
