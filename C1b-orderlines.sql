@@ -15,6 +15,7 @@ SELECT
   "0" AS "order lines/qty_invoiced",
   CONCAT("compan",LPAD(c.fk_soc,4,0)) AS "partner External ID",
   CONCAT("sorder",LPAD(c.rowid,4,0)) AS "External ID",
+  -- FAIRE UOM COLONNE AVEC UNIT 
   CONCAT("produc",LPAD(cd.fk_product,4,0)) AS "order lines/product template/External ID"
 FROM llx_commandedet AS cd 
 RIGHT JOIN llx_commande AS c ON cd.fk_commande = c.rowid
