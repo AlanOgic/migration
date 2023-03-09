@@ -27,9 +27,9 @@ SELECT
   IF(ISNULL(c.datec),"2019-07-01",DATE_FORMAT(date(c.datec),'%Y-%m-%d')) AS "date_order",
   IF(ISNULL(c.date_livraison),"2019-07-01",DATE_FORMAT(date(c.date_livraison),'%Y-%m-%d')) AS "commitment_date",
   CASE 
-    WHEN s.remise_client = 0  THEN IF(country.code IN ("US","CA"),"USD MSRP","EUR MSRP") 
-    WHEN s.remise_client = 10 THEN IF(country.code IN ("US","CA"),"USD Major","EUR Major") 
-    WHEN s.remise_client > 10 THEN IF(country.code IN ("US","CA"),"USD Reseller","EUR Reseller") 
+    WHEN s.remise_client = 0  THEN IF(s.fk_pays IN ("11","14"),"USD MSRP","EUR MSRP") 
+    WHEN s.remise_client = 10 THEN IF(s.fk_pays IN ("11","14"),"USD Major","EUR Major") 
+    WHEN s.remise_client > 10 THEN IF(s.fk_pays IN ("11","14"),"USD Reseller","EUR Reseller") 
     ELSE NULL
   END AS "pricelist_id",
    CASE 
@@ -42,7 +42,7 @@ SELECT
     WHEN s.cond_reglement = 19 THEN "45 Days"
     WHEN s.cond_reglement = 13 THEN "Immediate Payment"
     WHEN s.cond_reglement = 2  THEN "30 Days"
-    ELSE IF(ISNULL(s.cond_reglement),"30 Days",NULL)
+    ELSE IF(ISNULL(s.cond_reglement) OR ISNULL(s.nom),"30 Days",NULL)  --A REVOIR
   END AS "payment_term_id", 
   -- Order Lines
   CONCAT("[",p.label,"] ",p.ref) AS "order_line/product",
