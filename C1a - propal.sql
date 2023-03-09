@@ -1,7 +1,7 @@
 /* Original Odoo EXIM (export for import) of orders
 -- Orders fields
 name                       : S00097	
-partner_id                 : 3G Wireless LLC
+partner_id                 : 3G Wireless LLC !!! EXISTE DEJA, NE PEUT LE CREER, UTILISER EXTERNAL ID compan0000
 date_order                 : 2023-01-09 09:54:51	
 commitment_date            : 2023-01-09 09:54:51
 pricelist_id/name          : USD Reseller
@@ -18,13 +18,14 @@ order_line/is_expense	     : FALSE
 CREATE OR REPLACE VIEW c1a_propal AS 
 SELECT
   /* Order fields */
-  -- CONCAT("orders",LPAD(cd.rowid,4,0)) AS "External ID",
+  CONCAT("propal",LPAD(cd.rowid,4,0)) AS "External ID",
   c.ref AS "tempname",
   s.nom AS "partner_id",
+  CONCAT("compan",LPAD(c.fk_soc,4,0)) AS "Partner External ID",
   first_line.ref AS "name",
   -- Dates
   IF(ISNULL(c.datec),"2019-07-01",DATE_FORMAT(date(c.datec),'%Y-%m-%d')) AS "date_order",
-  -- IF(ISNULL(c.date_livraison),"2019-07-01",DATE_FORMAT(date(c.date_livraison),'%Y-%m-%d')) AS "commitment_date",
+  IF(ISNULL(c.date_livraison),"2019-07-01",DATE_FORMAT(date(c.date_livraison),'%Y-%m-%d')) AS "commitment_date",
   CASE 
     WHEN s.remise_client = 0  THEN IF(country.code IN ("US","CA"),"USD MSRP","EUR MSRP") 
     WHEN s.remise_client = 10 THEN IF(country.code IN ("US","CA"),"USD Major","EUR Major") 
@@ -44,6 +45,7 @@ SELECT
   END AS "payment_term_id", 
   -- Order Lines
   CONCAT("[",p.label,"] ",p.ref) AS "order_line/product",
+  CONCAT("produc",LPAD(cd.fk_product,4,0)) AS "product external id",
   CONCAT(first_line.ref," - [",p.label,"] ",p.ref) AS "order_line/description",
   cd.remise_percent AS "order_line/discount",
   cd.qty AS "order_line/product_uom_qty",
