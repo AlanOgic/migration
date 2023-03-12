@@ -52,14 +52,14 @@ SELECT
 FROM 
   -- Build an intermediate "first_line" table with the order id and the id of the first line of the order
   ( SELECT
-	    c.rowid AS orderId,
-      c.ref   AS ref,
-  	  MIN(cd.rowid) AS firstLineId
+      	c.rowid AS orderId,
+      	c.ref AS ref,
+ 	MIN(cd.rowid) AS firstLineId
     FROM
-  	  llx_commandedet AS cd 
-  	  RIGHT JOIN llx_commande AS c ON c.rowid = cd.fk_commande			
+   	llx_commandedet AS cd 
+  	RIGHT JOIN llx_commande AS c ON c.rowid = cd.fk_commande			
     -- WHERE c.rowid IN (1,3) -- LIGHT RESULT
-    WHERE 1 = 1  -- FULL RESULT
+    WHERE 1 = 1 AND cd.multicurrency_subprice <> 0  -- FULL RESULT
     GROUP BY c.rowid
   ) AS first_line
   LEFT JOIN llx_commandedet AS cd ON cd.fk_commande = first_line.orderId
@@ -67,5 +67,5 @@ FROM
   LEFT JOIN llx_commande    AS c ON first_line.firstLineId = cd.rowid AND c.rowid = first_line.orderId
   LEFT JOIN llx_societe     AS s ON s.rowid = c.fk_soc
   LEFT JOIN llx_c_country   AS country ON country.rowid = s.fk_pays
-WHERE 1=1;
+WHERE 1=1 AND name NOT REGEXP '\\([^)]*\\)';;
 SELECT * FROM c1_orders;
