@@ -1,4 +1,4 @@
--- fonctionne en utilisant fichier CSV, avec ou sans "", les virgules sont remplacées.
+-- fonctionne en utilisant fichier CSV (utf8), avec ou sans "", les virgules sont remplacées.
 CREATE OR REPLACE VIEW ORDERFULL AS 
 SELECT
     CONCAT("sorder",LPAD(c.rowid,5,0)) AS "External ID",
@@ -35,12 +35,12 @@ FROM
   	  llx_commandedet AS cd 
   	  RIGHT JOIN llx_commande AS c ON c.rowid = cd.fk_commande			
     -- WHERE c.rowid IN (1,3) -- LIGHT RESULT
-    WHERE 1 = 1 AND c.fk_soc <> 197  -- FULL RESULT
+    WHERE 1 = 1 AND c.fk_soc <> 197  -- je vire 'BS Finland ay' et FULL RESULT
     GROUP BY c.rowid 
   ) AS first_line
   LEFT JOIN llx_commandedet AS cd ON cd.fk_commande = first_line.orderId
   LEFT JOIN llx_product     AS p ON p.rowid = cd.fk_product
   LEFT JOIN llx_commande    AS c ON first_line.firstLineId = cd.rowid AND c.rowid = first_line.orderId
   LEFT JOIN llx_societe     AS s ON s.rowid = c.fk_soc
-WHERE 1=1 AND cd.multicurrency_subprice <> 0 AND p.ref IS NOT NULL;
+WHERE 1=1 AND cd.multicurrency_subprice <> 0 AND p.ref IS NOT NULL; -- erreur si un prix est à 0
 SELECT * FROM ORDERFULL;
