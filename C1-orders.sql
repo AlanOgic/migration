@@ -15,21 +15,20 @@ order_line/price_unit      : 10,400.00
 order_line/product_uom_qty : 1.00	
 order_line/is_expense	     : FALSE
 */
--- CREATE OR REPLACE VIEW c1_orders AS 
+CREATE OR REPLACE VIEW c1_orders AS 
 SELECT
   /* Order fields */
-  -- CONCAT("orders",LPAD(cd.rowid,5,0)) AS "External ID",
+  CONCAT("orders",LPAD(cd.rowid,5,0)) AS "External ID",
   -- CONCAT("sorder",LPAD(c.rowid,5,0)) AS "External ID",
-  COALESCE(DATE_FORMAT(date(c.date_commande),'%Y-%m-%d'),'') AS "order_date",
   COALESCE(c.ref, '') AS "name",
-  -- COALESCE(c.total_HT, '') AS "total_HT",
+  COALESCE(c.total_HT, '') AS "total_HT",
   COALESCE(s.nom, '') AS "partner_id",
-  -- COALESCE(CONCAT("compan",LPAD(s.rowid,4,0)),'') AS "customer/external id",
-  first_line.ref AS "order_line/order_reference",
+  CONCAT("compan",LPAD(s.rowid,4,0)) AS "customer/external id",
+  first_line.ref AS "order_line/reference",
   "2" AS "order_line/customer_lead",
   -- Dates
-    -- IF(ISNULL(c.date_commande),"2019-07-01",DATE_FORMAT(date(c.date_commande),'%Y-%m-%d')) AS "date_order",
-    -- IF(ISNULL(c.date_livraison),"2019-07-01",DATE_FORMAT(date(c.date_livraison),'%Y-%m-%d')) AS "commitment_date",
+  IF(ISNULL(c.date_commande),"2019-07-01",DATE_FORMAT(date(c.date_commande),'%Y-%m-%d')) AS "date_order",
+  IF(ISNULL(c.date_livraison),"2019-07-01",DATE_FORMAT(date(c.date_livraison),'%Y-%m-%d')) AS "commitment_date",
   /* CASE 
     WHEN s.remise_client = 0  THEN IF(country.code IN ("US","CA"),"USD MSRP","EUR MSRP") 
     WHEN s.remise_client = 10 THEN IF(country.code IN ("US","CA"),"USD Major","EUR Major") 
@@ -40,18 +39,17 @@ SELECT
     WHEN country.code = "BE" THEN  "Régime National"
     WHEN country.code IN ("AT","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","EU") THEN "Régime Intra-Communautaire" 
     ELSE IF(ISNULL(country.code),NULL,"Régime Extra-Communautaire") 
-  END AS "fiscal_position_id",
+  END AS "fiscal_position_id",*/
   CASE 
     WHEN s.cond_reglement = 19 THEN "45 Days"
     WHEN s.cond_reglement = 13 THEN "Immediate Payment"
     WHEN s.cond_reglement = 2  THEN "30 Days"
     ELSE IF(ISNULL(s.cond_reglement),NULL,"30 Days")
-  END AS "payment_term_id", */
+  END AS "payment_term_id", 
   -- Order Lines
-  -- COALESCE(CONCAT("[",p.label,"] ",p.ref),'') AS "order_line/product",
-  p.ref AS "produit",
-  COALESCE(CONCAT(first_line.ref," - [",p.label,"] ",p.ref),'') AS "order_line/description",
-  -- cd.remise_percent AS "order_line/discount",
+  CONCAT("[",p.label,"] ",p.ref) AS "order_line/product",
+  CONCAT(first_line.ref," - [",p.label,"] ",p.ref) AS "order_line/description",
+  cd.remise_percent AS "order_line/discount",
  -- CONCAT("compan",LPAD(s.rowid,4,0)) AS "customer/external id",
   cd.qty AS "order_line/product_uom_qty",
   cd.multicurrency_subprice AS "order_line/price_unit",
@@ -75,4 +73,4 @@ FROM
   LEFT JOIN llx_societe     AS s ON s.rowid = c.fk_soc
   LEFT JOIN llx_c_country   AS country ON country.rowid = s.fk_pays
 WHERE 1=1 AND cd.multicurrency_subprice <> 0 ;
--- SELECT * FROM c1_orders;
+SELECT * FROM c1_orders;

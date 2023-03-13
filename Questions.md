@@ -9,3 +9,5 @@
       - Inventory - Shipping method (include costs)
 2. Where is the list of "fiscal_poitions" ?
    - Invoicing
+
+The extract you have done for the LOAN Gsheet file is in SQL ? 

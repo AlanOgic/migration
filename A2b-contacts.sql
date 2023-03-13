@@ -4,7 +4,7 @@
 CREATE OR REPLACE VIEW a2b_contacts AS
 SELECT
   CONCAT("compan",LPAD(societe.rowid,4,0)) AS "External ID",
-  societe.nom AS "Name",
+  REPLACE(societe.nom, ',','-') AS "Name",
   "TRUE" AS "Is a Company",
   "" AS "Related Company",
   IFNULL(societe.tva_intra,"") AS "Tax ID",
@@ -76,7 +76,7 @@ SELECT
   CONCAT("people",LPAD(contact.rowid,4,0)) AS "External ID",
   IFNULL(CONCAT (contact.firstname," ",contact.lastname),"") AS "Name",
   "FALSE" AS "Is a Company",
-  societe.nom AS "Related Company",
+  REPLACE(societe.nom, ',','-') AS "Related Company",
   "" AS "Tax ID",
   "" AS "property_account_position_id", -- validated (by alan)
   "" AS "property_product_pricelist",

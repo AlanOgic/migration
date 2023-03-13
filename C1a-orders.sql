@@ -20,7 +20,7 @@
   CREATE OR REPLACE VIEW c1a_sorder AS 
   SELECT
     /* Order fields */
-    CONCAT("sorder",LPAD(c.rowid,4,0)) AS "External ID",
+    CONCAT("sorder",LPAD(c.rowid,5,0)) AS "External ID",
     c.ref AS "name",
     -- s.nom AS "partner name", -- dont use it as a primary key
     -- first_line.ref AS "name", --same extID for lines
@@ -50,7 +50,7 @@
     WHEN s.cond_reglement = 19 THEN "45 Days"
     WHEN s.cond_reglement = 13 THEN "Immediate Payment"
     WHEN s.cond_reglement = 2  THEN "30 Days"
-    ELSE IF(ISNULL(s.cond_reglement),NULL,"30 Days")
+    ELSE IF(ISNULL(s.cond_reglement),"30 Days",NULL)
   END AS "payment_term_id", 
     "As soon as possible" AS "picking_policy",
     s.nom AS "shipping_address",
@@ -60,19 +60,19 @@
     "0" AS "show_update_fpos",
     c.note_private AS "private note",
     "1" AS "sale_ok",
-  DATE_FORMAT(date(c.date_livraison),'%Y-%m-%d') AS "commitment_date"
-    /* order lines with a second order import
+  IF(ISNULL(cd.fk_product),"TRUE","FALSE") AS "order_line/is_expense",
+  DATE_FORMAT(date(c.date_livraison),'%Y-%m-%d') AS "commitment_date",
+    -- order lines 
     CONCAT("[",p.label,"] ",p.ref) AS "order_line/product",
     CONCAT(c.ref," - [",p.label,"] ",p.ref) AS "order_line/description",
     cd.remise_percent AS "order_line/discount",
     cd.qty AS "order_line/product_uom_qty",
-    cd.multicurrency_subprice AS "order_line/price_unit",
-    IF(ISNULL(cd.fk_product),"TRUE","FALSE") AS "order_line/is_expense"*/
+    cd.multicurrency_subprice AS "order_line/price_unit"
   FROM 
     llx_commande AS c
     LEFT JOIN status AS st ON st.id = c.fk_statut
-    -- LEFT JOIN llx_commandedet AS cd ON cd.fk_commande = c.rowid
-    -- LEFT JOIN llx_product     AS p ON p.rowid = cd.fk_product
+    LEFT JOIN llx_commandedet AS cd ON cd.fk_commande = c.rowid
+    LEFT JOIN llx_product     AS p ON p.rowid = cd.fk_product
     LEFT JOIN llx_societe AS s ON s.rowid = c.fk_soc
-  WHERE 1=1;
+  WHERE 1=1 AND cd.multicurrency_subprice <> 0 ;
   SELECT * FROM c1a_sorder;

@@ -13,10 +13,10 @@ SELECT
     WHEN country.code IN ("AT","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","EU") THEN "Régime Intra-Communautaire" 
     ELSE IF(ISNULL(country.code),NULL,"Régime Extra-Communautaire") 
   END AS "property_account_position_id", -- To be checked
-  IFNULL(societe.url,"") AS "Website Link",
+  IFNULL(IFNULL(societe.url,CONCAT("https://www.",SUBSTRING_INDEX(societe.email, '@', -1))),'') AS "Website Link",
   IFNULL(societe.email,"") AS "Email",
-  societe.client AS "Customer Rank",
-  societe.fournisseur AS "Supplier Rank",
+  societe.client AS "Customer Rank",  --ON VA TROUVER MIEUX
+  societe.fournisseur AS "Supplier Rank", --PAREIL
   "" AS "Title",
   "" AS "Job Position",
   TRIM(BOTH ',' FROM
@@ -120,4 +120,4 @@ FROM
   WHERE societe.fk_pays IS NOT NULL
 ORDER BY "External Id";  -- FULL EXPORT (with suppression of Pipedrive phantoms)
   -- WHERE societe.rowid IN(473,246,843,345,624);  -- LIGHT EXPORT
-SELECT * FROM a2_contacts;
+SELECT * FROM a2_contacts; 
