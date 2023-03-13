@@ -13,6 +13,13 @@ SELECT
     cd.remise_percent AS "order_line/discount",
     c.ref_client AS "client_order_ref",
     DATE_FORMAT(date(c.date_commande),'%Y-%m-%d') AS "date_order",
+    DATE_FORMAT(date(c.date_livraison),'%Y-%m-%d') AS "commitment_date",
+    CASE 
+      WHEN s.remise_client = 0  THEN IF(s.fk_pays IN ("11","14"),"USD MSRP","EUR MSRP") 
+      WHEN s.remise_client = 10 THEN IF(s.fk_pays IN ("11","14"),"USD Major","EUR Major") 
+      WHEN s.remise_client > 10 THEN IF(s.fk_pays IN ("11","14"),"USD Reseller","EUR Reseller") 
+      ELSE NULL
+    END AS "pricelist_id/name",
     -- IF(ISNULL(c.date_livraison),"2019-07-01",DATE_FORMAT(date(c.date_livraison),'%Y-%m-%d')) AS "commitment_date",
 FROM 
   -- Build an intermediate "first_line" table with the order id and the id of the first line of the order
