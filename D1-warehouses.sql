@@ -3,7 +3,7 @@ SELECT
   CONCAT("whouse",LPAD(wh.rowid,4,0)) AS "External ID",
   wh.ref AS "Name",
   wh.description AS "description",
-  wh.lieu AS "wh"
+  wh.lieu AS "warehouse"
 FROM
   llx_entrepot AS wh
 WHERE 1
