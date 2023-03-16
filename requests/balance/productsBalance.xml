@@ -1,0 +1,279 @@
+<?xml version='1.0' encoding='ISO-8859-1'?><mylist>
+<label>INOUT-products</label>
+<titlemenu>INOUT-products</titlemenu>
+<mainmenu></mainmenu>
+<leftmenu></leftmenu>
+<elementtab></elementtab>
+<perms>$user->rights->produit->lire</perms>
+<datatable>true</datatable>
+<shownumline>false</shownumline>
+<langs>Stock</langs>
+<export></export>
+<model_pdf>mylist_portrait</model_pdf>
+<author>Cyanview</author>
+<querylist>
+
+FROM llx_productsBalance WHERE 1
+
+</querylist>
+<fieldinit>
+
+</fieldinit>
+<querydo>
+
+</querydo>
+<fields>
+  <field >
+	 	<name>CustomerId</name>
+	 	<field>CustomerId</field>
+	 	<alias></alias>
+	 	<type>List</type>
+	 	<rang>1</rang>
+	 	<param>Societe::societe:nom</param>
+	 	<align>left</align>
+	 	<enabled>1</enabled>
+	 	<sumreport>0</sumreport>
+	 	<pctreport>0</pctreport>
+	 	<cumreport>0</cumreport>
+	 	<cumpctreport>0</cumpctreport>
+	 	<avgreport>0</avgreport>
+	 	<barcode></barcode>
+	 	<visible>1</visible>
+	 	<filter>1</filter>
+	 	<width>20</width>
+	 	<widthpdf>0</widthpdf>
+	 	<filterinit></filterinit>
+	</field>
+	<field >
+	 	<name>DDate</name>
+	 	<field>DDate</field>
+	 	<alias></alias>
+	 	<type>Date</type>
+	 	<rang>2</rang>
+	 	<param></param>
+	 	<align>right</align>
+	 	<enabled>1</enabled>
+	 	<sumreport></sumreport>
+	 	<pctreport></pctreport>
+	 	<cumreport></cumreport>
+	 	<cumpctreport></cumpctreport>
+	 	<avgreport></avgreport>
+	 	<barcode></barcode>
+	 	<visible>1</visible>
+	 	<filter>1</filter>
+	 	<width>15</width>
+	 	<widthpdf></widthpdf>
+	 	<filterinit></filterinit>
+	</field>
+	<field >
+	 	<name>OOrder</name>
+	 	<field>OOrder</field>
+	 	<alias></alias>
+	 	<type>List</type>
+	 	<rang>3</rang>
+	 	<param>Commande:/commande/class/commande.class.php:commande:ref</param>
+	 	<align>left</align>
+	 	<enabled>1</enabled>
+	 	<sumreport></sumreport>
+	 	<pctreport></pctreport>
+	 	<cumreport></cumreport>
+	 	<cumpctreport></cumpctreport>
+	 	<avgreport></avgreport>
+	 	<barcode></barcode>
+	 	<visible>1</visible>
+	 	<filter>1</filter>
+	 	<width>30</width>
+	 	<widthpdf></widthpdf>
+	 	<filterinit></filterinit>
+	</field>
+	<field >
+	 	<name>Debit</name>
+	 	<field>Debit</field>
+	 	<alias></alias>
+	 	<type>List</type>
+	 	<rang>4</rang>
+	 	<param>Expedition:/expedition/class/expedition.class.php</param>
+	 	<align>left</align>
+	 	<enabled>1</enabled>
+	 	<sumreport></sumreport>
+	 	<pctreport></pctreport>
+	 	<cumreport></cumreport>
+	 	<cumpctreport></cumpctreport>
+	 	<avgreport></avgreport>
+	 	<barcode></barcode>
+	 	<visible>1</visible>
+	 	<filter>1</filter>
+	 	<width>30</width>
+	 	<widthpdf></widthpdf>
+	 	<filterinit></filterinit>
+	</field>
+	<field >
+	 	<name>CreditRcpt</name>
+	 	<field>CreditRcpt</field>
+	 	<alias></alias>
+	 	<type>List</type>
+	 	<rang>5</rang>
+	 	<param>Reception:/reception/class/reception.class.php</param>
+	 	<align>left</align>
+	 	<enabled>1</enabled>
+	 	<sumreport></sumreport>
+	 	<pctreport></pctreport>
+	 	<cumreport></cumreport>
+	 	<cumpctreport></cumpctreport>
+	 	<avgreport></avgreport>
+	 	<barcode></barcode>
+	 	<visible>1</visible>
+	 	<filter>1</filter>
+	 	<width>30</width>
+	 	<widthpdf></widthpdf>
+	 	<filterinit></filterinit>
+	</field>
+	<field >
+	 	<name>CreditInv</name>
+	 	<field>CreditInv</field>
+	 	<alias></alias>
+	 	<type>List</type>
+	 	<rang>6</rang>
+	 	<param>Facture:/compta/facture/class/facture.class.php:facture:facnumber</param>
+	 	<align>left</align>
+	 	<enabled>1</enabled>
+	 	<sumreport>0</sumreport>
+	 	<pctreport>0</pctreport>
+	 	<cumreport>0</cumreport>
+	 	<cumpctreport>0</cumpctreport>
+	 	<avgreport>0</avgreport>
+	 	<barcode></barcode>
+	 	<visible>1</visible>
+	 	<filter>1</filter>
+	 	<width>20</width>
+	 	<widthpdf>0</widthpdf>
+	 	<filterinit></filterinit>
+	</field>
+	<field >
+	 	<name>Product</name>
+	 	<field>Product</field>
+	 	<alias></alias>
+	 	<type>List</type>
+	 	<rang>7</rang>
+	 	<param>Product:/product/class/product.class.php:product:ref</param>
+	 	<align>right</align>
+	 	<enabled>1</enabled>
+	 	<sumreport></sumreport>
+	 	<pctreport></pctreport>
+	 	<cumreport></cumreport>
+	 	<cumpctreport></cumpctreport>
+	 	<avgreport></avgreport>
+	 	<barcode></barcode>
+	 	<visible>1</visible>
+	 	<filter>1</filter>
+	 	<width>35</width>
+	 	<widthpdf></widthpdf>
+	 	<filterinit></filterinit>
+	</field>
+	<field >
+	 	<name>Qty</name>
+	 	<field>Qty</field>
+	 	<alias></alias>
+	 	<type>Number</type>
+	 	<rang>8</rang>
+	 	<param></param>
+	 	<align>right</align>
+	 	<enabled>1</enabled>
+	 	<sumreport>0</sumreport>
+	 	<pctreport>0</pctreport>
+	 	<cumreport>1</cumreport>
+	 	<cumpctreport>0</cumpctreport>
+	 	<avgreport>0</avgreport>
+	 	<barcode></barcode>
+	 	<visible>1</visible>
+	 	<filter>1</filter>
+	 	<width>10</width>
+	 	<widthpdf>0</widthpdf>
+	 	<filterinit></filterinit>
+	</field>
+	<field >
+	 	<name>Batch</name>
+	 	<field>Batch</field>
+	 	<alias></alias>
+	 	<type>Text</type>
+	 	<rang>9</rang>
+	 	<param></param>
+	 	<align>left</align>
+	 	<enabled>1</enabled>
+	 	<sumreport>0</sumreport>
+	 	<pctreport>0</pctreport>
+	 	<cumreport>0</cumreport>
+	 	<cumpctreport>0</cumpctreport>
+	 	<avgreport>0</avgreport>
+	 	<barcode></barcode>
+	 	<visible>1</visible>
+	 	<filter>1</filter>
+	 	<width>30</width>
+	 	<widthpdf>0</widthpdf>
+	 	<filterinit></filterinit>
+	</field>
+	<field >
+	 	<name>Batch Qty</name>
+	 	<field>Batch_Qty</field>
+	 	<alias></alias>
+	 	<type>Number</type>
+	 	<rang>10</rang>
+	 	<param></param>
+	 	<align>left</align>
+	 	<enabled>1</enabled>
+	 	<sumreport>0</sumreport>
+	 	<pctreport>0</pctreport>
+	 	<cumreport>0</cumreport>
+	 	<cumpctreport>0</cumpctreport>
+	 	<avgreport>0</avgreport>
+	 	<barcode></barcode>
+	 	<visible>1</visible>
+	 	<filter>1</filter>
+	 	<width>10</width>
+	 	<widthpdf>0</widthpdf>
+	 	<filterinit></filterinit>
+	</field>
+  <field >
+    <name>Customer</name>
+    <field>Customer</field>
+    <alias></alias>
+    <type>Text</type>
+    <rang>11</rang>
+    <param></param>
+    <align>left</align>
+    <enabled>1</enabled>
+    <sumreport>0</sumreport>
+    <pctreport>0</pctreport>
+    <cumreport>0</cumreport>
+    <cumpctreport>0</cumpctreport>
+    <avgreport>0</avgreport>
+    <barcode></barcode>
+    <visible>1</visible>
+    <filter>1</filter>
+    <width>20</width>
+    <widthpdf>0</widthpdf>
+    <filterinit></filterinit>
+  </field>
+	<field >
+	 	<name>HasBatch</name>
+	 	<field>HasBatch</field>
+	 	<alias></alias>
+	 	<type>Boolean</type>
+	 	<rang>12</rang>
+	 	<param></param>
+	 	<align>left</align>
+	 	<enabled>1</enabled>
+	 	<sumreport>0</sumreport>
+	 	<pctreport>0</pctreport>
+	 	<cumreport>0</cumreport>
+	 	<cumpctreport>0</cumpctreport>
+	 	<avgreport>0</avgreport>
+	 	<barcode></barcode>
+	 	<visible>1</visible>
+	 	<filter>1</filter>
+	 	<width>10</width>
+	 	<widthpdf>0</widthpdf>
+	 	<filterinit></filterinit>
+	</field>
+</fields>
+</mylist>

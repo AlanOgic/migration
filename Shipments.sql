@@ -1,6 +1,7 @@
-CREATE OR UPDATE VIEW ORDRSHIP AS
-SELECT 
-    
+CREATE OR REPLACE VIEW ORDRSHIP AS
+SELECT
+    s.ref AS "ref",
+    p.produits AS "produits"
 FROM llx_commande AS c 
     LEFT JOIN llx_commandedet AS cd ON cd.fk_commande = c.rowid 
     LEFT JOIN llx_expeditiondet AS shd ON shd.fk_origin_line = cd.rowid 
