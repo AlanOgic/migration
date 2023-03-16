@@ -15,3 +15,9 @@ https://www.youtube.com/@ouiddoo-conseiletformation6646/videos
 
 Free domain name with Odoo
 https://www.odoo.com/documentation/16.0/fr/administration/maintain/domain_names.html#register-a-free-domain-name-with-odoo
+
+
+
+DATABASE MIGRATION
+https://pgloader.readthedocs.io/en/latest/
+dimitri/pgloader

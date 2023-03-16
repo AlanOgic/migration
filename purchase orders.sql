@@ -1,5 +1,5 @@
 -- fonctionne en utilisant fichier CSV (utf8), avec ou sans "", les virgules sont remplacées.
-CREATE OR REPLACE VIEW PURCHASEFULL AS 
+-- CREATE OR REPLACE VIEW PURCHASEFULL AS 
 SELECT
     CONCAT("porder",LPAD(po.rowid,5,0)) AS "External ID",
     po.ref AS "name",
@@ -49,4 +49,4 @@ FROM
   LEFT JOIN llx_commande_fournisseur_dispatch AS pd ON po.rowid = pd.fk_commande 
   LEFT JOIN llx_reception AS rec ON rec.rowid = pd.fk_reception
 WHERE 1=1 AND cd.multicurrency_subprice <> 0 AND p.ref IS NOT NULL; -- erreur si un prix est à 0
-SELECT * FROM PURCHASEFULL;
+-- SELECT * FROM PURCHASEFULL;
