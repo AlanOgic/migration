@@ -1,4 +1,4 @@
-# Question mysql to pg
+# Question
 
 use pgloader to transfer data from MySQL to an existing Postgres database, with a given file showing the correspondence between fields.
 
@@ -41,6 +41,30 @@ Yes, you can transfer data from multiple tables in one go. You'll need to create
 
 ```
 pgloader mysql://user:password@host/my_db postgresql://user:password@host/postgres_db --mapping-files table1.sql table2.sql
+```
+
+If you need more help, you can refer to the pgloader documentation [here](https://pgloader.readthedocs.io/en/latest/).
+
+# Question
+
+if i give you a file with matching fields, you can write the code for me ?
+
+# Answer
+
+Sure, I can help you with that. I'll need to see the file with the matching fields first, so I can understand the structure of the data and write the code accordingly. Can you provide me with the file?
+
+# Question
+
+very soon
+
+# Answer
+
+Great, I look forward to seeing the file. In the meantime, I can provide you with some tips on how to use pgloader to transfer data from MySQL to an existing Postgres database. First, make sure that the source and target databases are compatible. You'll need to ensure that the data types and field names match between the two databases. Additionally, you'll need to make sure that the data is in the correct format for the target database. 
+
+Once you have verified that the databases are compatible, you can use the pgloader command to transfer the data. You'll need to provide the pgloader command with the source and target databases, as well as the file that shows the correspondence between fields. For example, if you have a MySQL database called `my_db` and a Postgres database called `postgres_db`, you can use the following command to transfer the data:
+
+```
+pgloader mysql://user:password@host/my_db postgresql://user:password@host/postgres_db file.sql
 ```
 
 If you need more help, you can refer to the pgloader documentation [here](https://pgloader.readthedocs.io/en/latest/).
