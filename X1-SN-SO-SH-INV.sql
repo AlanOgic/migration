@@ -8,20 +8,21 @@ pb.Debit AS Debit,
 pb.CreditRcpt AS CreditRcpt,
 pb.CreditInv AS CreditInv,
 pb.Product AS Product,
+CONCAT("produc",LPAD(pr.rowid,4,0)) AS "Product/External ID",
 pb.Qty AS Qty,
 pb.Batch AS Batch,
 pb.Batch_Qty AS Batch_Qty,
 pb.CustomerId AS CustomerId,
 CONCAT("compan",LPAD(pb.CustomerId,4,0)) AS "customer/external id",
 pb.HasBatch AS HasBatch,
-p.code AS PaymCode,c.ref
-AS OrderRef,
+p.code AS PaymCode, -- trier/exclure ou tag
+c.ref AS OrderRef,
 e.ref AS ShipmentRef,
 e.tracking_number AS Tracking,
 r.ref AS RcptRef,
 f.ref AS InvoiceRef,
-pr.ref AS ProductRef,
-CONCAT("produc",LPAD(pr.rowid,4,0)) AS "Product/External ID"
+f.paye AS IsPaid,
+pr.ref AS ProductRef
 FROM llx_productsBalance AS pb
 LEFT JOIN llx_c_paiement AS p ON p.id = pb.Type
 LEFT JOIN llx_commande AS c ON c.rowid = pb.OOrder

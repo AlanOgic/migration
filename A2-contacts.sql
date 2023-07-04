@@ -48,7 +48,7 @@ FROM
       catsoc.fk_soc AS socid,
       GROUP_CONCAT(IF (cat_biz.label IN ("Unknown","Others"),"",CONCAT("Business / ", SUBSTR(cat_biz.label,3))) SEPARATOR ',') AS business,
       GROUP_CONCAT(CONCAT("Size / ", cat_size.label) SEPARATOR ',')               AS size, 
-      GROUP_CONCAT(IF (cat_buy.label IN ("Unknown","Others"),"",CONCAT("Buyer / ", SUBSTR(cat_buy.label,3))) SEPARATOR ',')     AS buyer,
+      GROUP_CONCAT(IF (cat_buy.label IN ("Unknown","Others"),"",CONCAT("Buyer / ", SUBSTR(cat_buy.label,3))) SEPARATOR ',') AS buyer,
       GROUP_CONCAT(CONCAT("Specificity / ", cat_spec.label) SEPARATOR ',')        AS specificity
     FROM  llx_categorie_societe AS catsoc
       -- find business categorie : meta-categorie (parent) is 39, categorie type is customer (2)

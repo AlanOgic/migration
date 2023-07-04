@@ -44,3 +44,4 @@ FROM  llx_product_stock AS ps
  WHERE 1 = 1
  GROUP BY Product
  ORDER BY Reference;
+ SELECT * FROM llx_stockPerWarehouse;

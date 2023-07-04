@@ -9,7 +9,8 @@ SELECT
   IF(p.tobuy = 0 AND p.tosell = 0,FALSE,TRUE) AS Active,
   p.tosell AS "Can be Sold",
   p.tobuy AS "Can be Purchased",
-  -- p.note AS "description",
+  -- MAX(pstock.reel) AS "stock reel",
+ -- p.note AS "description",
   IFNULL(p.note,"") AS "description",
   IFNULL(p.cost_price,0.0) AS Cost,
   -- "EUR" AS "Cost Currency",
@@ -47,6 +48,8 @@ LEFT JOIN llx_product_price AS pp ON pp.fk_product = p.rowid
 LEFT JOIN llx_categorie_product AS cp ON cp.fk_product = p.rowid
 LEFT JOIN llx_categorie AS c ON c.rowid = cp.fk_categorie
 LEFT JOIN llx_c_country AS country ON country.rowid = p.fk_country
+-- LEFT JOIN llx_product_stock AS pstock ON pstock.fk_product = p.rowid
+-- LEFT JOIN llx_inventorydet AS invent ON invent.fk_product = p.rowid
 WHERE 1 -- FULL EXPORT
 -- WHERE p.rowid IN (126,294,201,200,202,377,118,330,119,391)-- LIGHT EXPORT
 GROUP BY p.rowid
