@@ -12,7 +12,7 @@ LEFT JOIN llx_product as p ON p.rowid = sm.fk_product
 -- WHERE p.ref LIKE "%RCP%"
 WHERE 1 = 1
 GROUP BY Month,Product,Product_Id
-ORDER BY Month,Product,Product_Id
+ORDER BY Month,Product,Product_Id;
 
 -- Consumption by product type
 SELECT
