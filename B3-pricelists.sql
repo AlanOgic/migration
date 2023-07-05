@@ -1,5 +1,5 @@
 /* Generate Odoo Price Lists from Dolibarr Pricelist exluding prices not in Dolibarr price list */
-CREATE OR REPLACE VIEW b3_pricelists AS 
+CREATE OR REPLACE VIEW b3a_pricelists AS 
 (
 SELECT
     header.a AS "External Id",
@@ -117,4 +117,4 @@ UNION SELECT
     0.0 AS "Pricelist Items/Fixed Price",
     20.0 AS "item_ids/price_discount";
   
-SELECT * FROM b3_pricelists; 
+SELECT * FROM b3a_pricelists; 
