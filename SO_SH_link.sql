@@ -1,7 +1,9 @@
-CREATE OR REPLACE VIEW SOSH_LINK AS
+CREATE OR REPLACE VIEW sosh_link AS
 SELECT s.nom AS Company,
         CONCAT("produc",LPAD(e.rowid,4,0)) AS "ship ext id",
         e.date_delivery AS Date,
+        e.tms AS timstamp,
+        e.date_creation AS datecrea,
         p.ref AS Product,
         pl.rowid AS Serial,
         pl.batch,
@@ -24,6 +26,21 @@ FROM        llx_expedition AS e
   LEFT JOIN llx_societe                       AS s   ON s.rowid   = c.fk_soc
   LEFT JOIN llx_product                       AS p   ON p.rowid   = cd.fk_product
   LEFT JOIN llx_c_paiement                    AS cp  ON cp.id     = c.fk_mode_reglement
-WHERE p.ref IS NOT NULL AND c.fk_mode_reglement NOT IN (56, 54, 58, 61, 62) AND e.fk_statut <> 9
+WHERE p.ref IS NOT NULL AND e.fk_statut <> 9 -- AND c.fk_mode_reglement NOT IN (56, 54, 58, 61, 62) AND e.date_creation < '2023-07-01'
 ORDER BY e.rowid ASC, ed.rowid ASC;
-SELECT * FROM SOSH_LINK;
+
+/* On ne prend que le derniers envois par SN, affichage du customer
+
+
+SELECT 
+product, 
+--COUNT(DISTINCT batch) AS occurrence_count,
+MAX(datecrea) AS ledernier,
+MAX(Company) AS dernierclient,
+batch as snum
+FROM sosh_link
+GROUP BY batch, Product
+HAVING occurrence_count > 0;
+
+
+*/
