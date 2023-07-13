@@ -1,5 +1,5 @@
 -- fonctionne en utilisant fichier CSV (utf8), avec ou sans "", les virgules sont remplacées.
-CREATE OR REPLACE VIEW ORDERFULL AS 
+CRçEATE OR REPLACE VIEW ORDERFULL AS 
 SELECT
     CONCAT("sorder",LPAD(c.rowid,5,0)) AS "External ID",
     c.ref AS "name",
